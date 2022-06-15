@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-RetoFinalDesarrolloWebApplication<RetoFinalDesarrolloWeb>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.sofkau.RetoFinalDesarrolloWeb.RetoFinalDesarrolloWebApplication",
+            "projectName": "RetoFinalDesarrolloWeb",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
