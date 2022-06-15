@@ -12,18 +12,20 @@ public class TareaModel {
     @Column(unique = true, nullable = false)
     private Long idTarea;
 
-    // @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    // @JoinColumn(name = "idUsuario", nullable = false)
-    // @JsonBackReference
-    // private UsuarioModel idUsuario;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "idLista", nullable = false)
+    @JsonBackReference
+    private ListaModel idLista;
 
     @Column
     private String descripcionTarea;
 
     public TareaModel() {
     }
-
-    public TareaModel(String descripcionTarea) {
+    
+    public TareaModel(Long idTarea, ListaModel idLista, String descripcionTarea) {
+        this.idTarea = idTarea;
+        this.idLista = idLista;
         this.descripcionTarea = descripcionTarea;
     }
 

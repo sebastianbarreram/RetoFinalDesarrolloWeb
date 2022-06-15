@@ -18,20 +18,19 @@ public class ListaModel {
     @Column
     private String nombreLista;
 
-    // @OneToMany(
-    // fetch = FetchType.EAGER,
-    // targetEntity = UsuarioRolModel.class,
-    // cascade = CascadeType.REMOVE,
-    // mappedBy = "idUsuario"
-    // )
-    // @JsonManagedReference
-    // private List<UsuarioRolModel> usuarioRolModel = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, 
+    targetEntity = TareaModel.class, 
+    cascade = CascadeType.REMOVE, 
+    mappedBy = "idLista")
+    @JsonManagedReference
+    private List<TareaModel> tareaModel = new ArrayList<>();
 
     public ListaModel() {
     }
 
-    public ListaModel(String nombreLista) {
+    public ListaModel(String nombreLista, List<TareaModel> tareaModel) {
         this.nombreLista = nombreLista;
+        this.tareaModel = tareaModel;
     }
 
     public Long getId() {
@@ -48,6 +47,14 @@ public class ListaModel {
 
     public void setNombreLista(String nombreLista) {
         this.nombreLista = nombreLista;
+    }
+
+    public List<TareaModel> getTareaModel() {
+        return tareaModel;
+    }
+
+    public void setTareaModel(List<TareaModel> tareaModel) {
+        this.tareaModel = tareaModel;
     }
 
 }
