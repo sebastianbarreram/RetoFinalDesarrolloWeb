@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch RetoFinalDesarrolloWebApplication",
+            "request": "launch",
+            "mainClass": "com.sofkau.RetoFinalDesarrolloWeb.RetoFinalDesarrolloWebApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-RetoFinalDesarrolloWebApplication<RetoFinalDesarrolloWeb>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

@@ -20,13 +20,17 @@ public class TareaModel {
     @Column
     private String descripcionTarea;
 
+    @Column
+    private boolean completada;
+
     public TareaModel() {
     }
     
-    public TareaModel(Long idTarea, ListaModel idLista, String descripcionTarea) {
+    public TareaModel(Long idTarea, ListaModel idLista, String descripcionTarea, boolean completada) {
         this.idTarea = idTarea;
         this.idLista = idLista;
         this.descripcionTarea = descripcionTarea;
+        this.completada = completada;
     }
 
     public Long getIdTarea() {
@@ -45,5 +49,12 @@ public class TareaModel {
         this.descripcionTarea = descripcionTarea;
     }
 
+    public boolean isCompletada() {
+        return completada;
+    }
+
+    public void setCompletada(boolean completada) {
+        this.completada = completada;
+    }
 
 }
