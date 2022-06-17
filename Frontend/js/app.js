@@ -280,8 +280,4 @@ document.addEventListener("click", async (e) => {
         botoninputTarea.dataset.name = e.target.id
         // console.log(opcion)
     }
-
-    if (e.target.matches(".btnCrearLista") || e.target.matches(".btnCrearTarea") && e.target.previousSibling.previousSibling.value == "" ) {
-        alert("El elemento a crear no puede estar vacío. Por favor ingrese un valor")
-     }
 });
