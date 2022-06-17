@@ -11,7 +11,7 @@ Desarrollo de aplicación web Full Stack. Para el Frontend se utiliza JavaScript
 
 * Para despliegue local se requiere usar live server en el archivo index.html.
 
-# Despliegue web Frontend:
+## Despliegue web Frontend:
 Enlace netlify: https://retofinal-sebastianbarrera-desarrolloweb.netlify.app/
 
 ## Enlace video sustentación
