@@ -8,15 +8,13 @@ let opcion = ""
 
 const formLista = document.querySelector("form");
 
-//funcion para mostrar los resultados
+//Funcion para mostrar elementos de la base de datos
 const getAll = async () => {
     try {
         let res = await axios.get(urlLista),
             datos = await res.data;
         opcion = ""
-        // console.log(datos)
         datos.forEach((lista) => {
-            // console.log(lista)
             resultados += `<div class="contenedorLista"><h3 >${lista.nombreLista}
         <button class="btnBorrarLista btn btn-danger" id="${lista.id}">Eliminar</button></h3>
                 <div class="input-group mb-3">
@@ -33,8 +31,6 @@ const getAll = async () => {
         </thead>
         <tbody>`;
             lista.tareaModel.forEach((tarea) => {
-                // console.log(tarea)
-                // ${tarea.completada}
                 resultados += `
             <tr>
             <th>${tarea.idTarea}</th>`
@@ -58,8 +54,6 @@ const getAll = async () => {
           </tr>`;
             });
             resultados += `</tbody></table></div><br><br>`;
-            // console.log(contenedor)
-            // console.log(resultados)
             contenedor.innerHTML = resultados;
         });
     } catch (err) {
@@ -72,19 +66,18 @@ const getAll = async () => {
     let checkboxes = document.querySelectorAll("input:checked")
 
     checkboxes.forEach(element => {
-        // console.log(element.nextSibling.nextSibling)
         element.nextSibling.nextSibling.classList.add("text-decoration-line-through", 'text-muted')
         element.parentNode.nextSibling.nextSibling.childNodes[1].disabled = true
     })
 };
 
-//Procedimiento Mostrar
+//Procedimiento obtener elementos de la base de datos
 document.addEventListener("DOMContentLoaded", getAll);
 
+//Crea una nueva lista al hacer click en el boton respectivo
 btnCrearLista.addEventListener("click", async (e) => {
     const nombreLista = document.getElementById("nombreListaInput");
     if (nombreLista.value !== "") {
-        // console.log(typeof(nombreLista.value))
         try {
             let options = {
                 method: "POST",
@@ -108,10 +101,10 @@ btnCrearLista.addEventListener("click", async (e) => {
     }
 });
 
+//Evento para retener donde hizo click el usuario
 document.addEventListener("click", async (e) => {
+    //Click sobre boton elemininar lista
     if (e.target.matches(".btnBorrarLista")) {
-        // console.log("click")
-        // console.log(e.target.id)
         try {
             let options = {
                 method: "DELETE",
@@ -129,8 +122,8 @@ document.addEventListener("click", async (e) => {
         }
     }
 
+    //Click sobre el boton eliminar tarea
     if (e.target.matches(".btnBorrarTarea")) {
-        // console.log("click");
         try {
             let options = {
                 method: "DELETE",
@@ -147,10 +140,9 @@ document.addEventListener("click", async (e) => {
             alert(`Error ${err.status}: ${message}`);
         }
     }
+
+    //Click sobre el boton crear tarea
     if (e.target.matches(".btnCrearTarea")) {
-        // console.log("click crear tarea")
-        // console.log(e.target.id)
-        // console.log(e.target.previousSibling.previousSibling.value)
         if (e.target.previousSibling.previousSibling.value !== "" && opcion !== "editar") {
             try {
                 let options = {
@@ -174,6 +166,8 @@ document.addEventListener("click", async (e) => {
                 alert(`Error ${err.status}: ${message}`);
             }
         }
+
+        //Click sobre el boton editar tarea
         if (e.target.previousSibling.previousSibling.value !== "" && opcion == "editar") {
             try {
                 let options = {
@@ -199,20 +193,14 @@ document.addEventListener("click", async (e) => {
                 $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}: ${message}</b></p>`);
             }
         }
-
     }
+
+    //Click sobre el checkbox
     if (e.target.matches(".form-check-input")) {
-        // console.log(e.target)
-        // console.log(e.target.nextSibling.nextSibling)
-        // console.log(e.target.parentNode.nextSibling.nextSibling.childNodes[1])
-        // console.log(e.target.parentNode.nextSibling.nextSibling.childNodes[1].name)
-        // console.log(e.target.parentNode.nextSibling.nextSibling.childNodes[1].id)
-        // console.log(e.target.parentNode.parentNode.parentNode.parentNode.id)
-        
+        //Marca la tarea como completada. Se deshabilita la opcion crear de la tarea
         if (e.target.checked) {
             e.target.nextSibling.nextSibling.classList.add("text-decoration-line-through", 'text-muted')
             e.target.parentNode.nextSibling.nextSibling.childNodes[1].disabled = true
-
             try {
                 let options = {
                     method: "POST",
@@ -230,13 +218,12 @@ document.addEventListener("click", async (e) => {
                 },
                     res = await axios(urlTarea, options),
                     json = await res.data;
-
             } catch (err) {
                 let message = err.statusText || "Ocurrió un error";
                 $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}: ${message}</b></p>`);
             }
-            
         }
+        //Marca la tarea como no completada. Se habilita la opcion crear de la tarea
         else {
             e.target.nextSibling.nextSibling.classList.remove("text-decoration-line-through", 'text-muted')
             e.target.parentNode.nextSibling.nextSibling.childNodes[1].disabled = false
@@ -257,27 +244,22 @@ document.addEventListener("click", async (e) => {
                 },
                     res = await axios(urlTarea, options),
                     json = await res.data;
-
             } catch (err) {
                 let message = err.statusText || "Ocurrió un error";
                 $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}: ${message}</b></p>`);
             }
         }
     }
+
+    //Click sobre el boton editar. Lleva los datos de la tarea al input de edicion
     if (e.target.matches(".btnEditar")) {
-        // console.log(e.target.parentNode.parentNode.parentNode.parentNode.previousSibling.previousSibling.childNodes[1])
-        // console.log(e.target.parentNode.previousSibling.previousSibling.childNodes[3].innerHTML)
         var inputTarea = e.target.parentNode.parentNode.parentNode.parentNode.previousSibling.previousSibling.childNodes[1]
         var tareaEditar = e.target.name
-        // console.log(inputTarea)
-        // console.log(tareaEditar)
-        // console.log(e.target.parentNode.parentNode.parentNode.parentNode.previousSibling.previousSibling.childNodes)
         var botoninputTarea = e.target.parentNode.parentNode.parentNode.parentNode.previousSibling.previousSibling.childNodes[3]
 
         inputTarea.value = tareaEditar
         botoninputTarea.innerHTML = "Editar"
         opcion = "editar"
         botoninputTarea.dataset.name = e.target.id
-        // console.log(opcion)
     }
 });
