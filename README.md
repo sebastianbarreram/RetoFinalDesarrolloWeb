@@ -4,6 +4,7 @@ Desarrollo de aplicación web Full Stack. Para el Frontend se utiliza JavaScript
 ## Backend Setup
 
 * Para despliegue local se requiere tener en ejecución el servidor web MySQL.
+* Se debe crear una base de datos con nombre "retofinaldesarrolloweb".
 * Ejecutar el archivo main "RetoFinalDesarrolloWebApplication.java" ubicado en la ruta Backend\RetoFinalDesarrolloWeb\src\main\java\com\sofkau\RetoFinalDesarrolloWeb.
 
 ## Frontend Setup
