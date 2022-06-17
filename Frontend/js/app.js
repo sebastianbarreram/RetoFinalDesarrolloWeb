@@ -1,15 +1,28 @@
 //Definición de variables
-const url = 'http://localhost:8080/lista/'
-const contenedor = document.querySelector('#contenedor')
-let resultados = ''
+const urlLista = "http://localhost:8080/lista/";
+const urlTarea = "http://localhost:8080/tarea/"
+const contenedor = document.querySelector("#contenedor");
+const btnCrearLista = document.getElementById("btnCrearLista")
+let resultados = "";
+var opcion = ''
+
+const formLista = document.querySelector('form')
+
+btnCrearLista.addEventListener('click', () => {
+    nombreLista.value = ''
+    opcion = 'crearLista'
+})
 
 //funcion para mostrar los resultados
-const mostrar = (datos) => {
-    // console.log(datos)
-    datos.forEach(lista => {
-        // console.log(lista)
-        resultados += `<h3>${lista.nombreLista}
-        <button class="btnBorrar btn btn-danger">Eliminar</button></h3>
+const getAll = async () => {
+    try {
+        let res = await axios.get(urlLista),
+            datos = await res.data;
+        // console.log(datos)
+        datos.forEach((lista) => {
+            // console.log(lista)
+            resultados += `<h3 >${lista.nombreLista}
+        <button class="btnBorrarLista btn btn-danger" id="${lista.id}">Eliminar</button></h3>
         <table id="${lista.id}" class="tabla${lista.id}" >
         <thead>
           <tr class="text-center">
@@ -18,11 +31,11 @@ const mostrar = (datos) => {
             <th>Acciones</th>
           </tr>
         </thead>
-        <tbody>`
-        lista.tareaModel.forEach(tarea => {
-            // console.log(tarea)
-            // ${tarea.completada}
-            resultados += `
+        <tbody>`;
+            lista.tareaModel.forEach((tarea) => {
+                // console.log(tarea)
+                // ${tarea.completada}
+                resultados += `
             <tr>
             <th>${tarea.idTarea}</th>
             <th>
@@ -31,46 +44,26 @@ const mostrar = (datos) => {
             </th>
             <th>
               <button class="btnEditar btn btn-primary" id="${tarea.idTarea}">Editar</button>
-              <button class="btnBorrar btn btn-danger">Eliminar</button>
+              <button class="btnBorrarTarea btn btn-danger" id="${tarea.idTarea}">Eliminar</button>
             </th>
-          </tr>`
-        })
-        resultados += `</tbody></table>`
-        // console.log(contenedor)
-        // console.log(resultados)
-        contenedor.innerHTML=resultados
-    })
-
-    //contenedor.innerHTML = resultados
-    // console.log(resultados)
-
-
-}
-
-
-// const mostrar = (datos) => {
-//     console.log(datos)
-//     datos.forEach(lista => {
-//         resultados+=
-//         console.log(lista.nombreLista)
-//         lista.tareaModel.forEach(tarea => {
-//             console.log(tarea.idTarea)
-//         }
-
-//         )
-
-//     })
-
-// }
+          </tr>`;
+            });
+            resultados += `</tbody></table>`;
+            // console.log(contenedor)
+            // console.log(resultados)
+            contenedor.innerHTML = resultados;
+        });
+    } catch (err) {
+        let message = err.statusText || "Ocurrió un error";
+        contenedor.insertAdjacentHTML(
+            "afterend",
+            `<p><b>Error ${err.status}: ${message}</b></p>`
+        );
+    }
+};
 
 //Procedimiento Mostrar
-let res = await axios.get(url),
-json = await res.data;
-
-// console.log(json[0]);
-// console.log(json.length)
-// console.log(json[0].tareaModel.length)
-mostrar(json)
+document.addEventListener("DOMContentLoaded", getAll);
 
 // const checkInput = document.getElementById("checkbox")
 // const texto = document.getElementById("checkbox2")
@@ -83,7 +76,6 @@ mostrar(json)
 // checkInput.checked = true
 // checkInput2.checked = true
 
-
 // function subrayar() {
 //     //console.log("check")
 //     let checkboxes = document.querySelectorAll("input:checked")
@@ -94,7 +86,7 @@ mostrar(json)
 //     checkboxes.forEach(element => {
 //         console.log(element.parentNode)
 //     });
-    
+
 //     if (checkInput.checked) {
 //         //console.log("si esta check")
 //         texto.classList.add("text-decoration-line-through",'text-muted')
@@ -130,5 +122,70 @@ mostrar(json)
 
 // let checkboxes = document.querySelectorAll("input:checked")
 
-
 // document.addEventListener("click", subrayar)
+
+
+btnCrearLista.addEventListener("click", async e => {
+    const nombreLista = document.getElementById("nombreListaInput")
+    if (nombreLista.value!=="") {
+        try {
+            let options = {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({
+                    nombreLista: nombreLista.value,
+                })
+            },
+                res = await axios(urlLista, options),
+                json = await res.data;
+    
+            location.reload();
+        } catch (err) {
+            let message = err.statusText || "Ocurrió un error";
+            $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}: ${message}</b></p>`);
+        }
+    }
+});
+
+document.addEventListener("click", async e =>{
+    if (e.target.matches(".btnBorrarLista")) {
+        // console.log("click")
+        // console.log(e.target.id)
+        try {
+            let options = {
+                method: "DELETE",
+                headers: {
+                    "Content-type": "application/json; charset=utf-8"
+                }
+            },
+                res = await axios(urlLista +e.target.id, options),
+                json = await res.data;
+
+            location.reload();
+        } catch (err) {
+            let message = err.statusText || "Ocurrió un error";
+            alert(`Error ${err.status}: ${message}`);
+        }
+    }
+
+    if(e.target.matches(".btnBorrarTarea")){
+        console.log("click")
+        try {
+            let options = {
+                method: "DELETE",
+                headers: {
+                    "Content-type": "application/json; charset=utf-8"
+                }
+            },
+                res = await axios(urlTarea +e.target.id, options),
+                json = await res.data;
+
+            location.reload();
+        } catch (err) {
+            let message = err.statusText || "Ocurrió un error";
+            alert(`Error ${err.status}: ${message}`);
+        }
+    }
+})

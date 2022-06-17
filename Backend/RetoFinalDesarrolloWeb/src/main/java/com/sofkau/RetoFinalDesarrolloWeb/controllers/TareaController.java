@@ -26,5 +26,15 @@ public class TareaController {
         return this.tareaService.guardarTarea(tarea);
     }
 
+    @DeleteMapping(path = "/{id}")
+    public String eliminarPorId(@PathVariable("id") Long id) {
+        boolean ok = this.tareaService.eliminarTarea(id);
+        if (ok) {
+            return "Se eliminó la tarea con id " + id;
+        } else {
+            return "No pudo eliminar la tarea con id " + id;
+        }
+    }
+
 }
 

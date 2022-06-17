@@ -14,17 +14,20 @@
 
 <body>
   <section class="crud">
-    <article>
-      <h2 class="crud-title">To-Do List</h2>
-      <form class="crud-form">
-        <input type="text" id="listaInput" placeholder="¿Qué piensas hacer hoy?" required />
-        <input type="submit" value="Crear" />
-      </form>
-    </article>
-    <article>
-      <ul class="list-group text-light to-dos" id="lista"></ul>
-    </article>
-    <div id="contenedor">      
+    <div class="container mt-4 shadow-lg p-3 mb-5 bg-body rounded">
+      <article>
+
+        <h2 class="crud-title">To-Do List</h2>
+        <div class="input-group mb-3">
+          <input type="text" id="nombreListaInput" class="form-control" placeholder="Lista de To-Do">
+          <button class="btn btn-outline-secondary" type="button" id="btnCrearLista">Nueva lista</button>
+        </div>
+      </article>
+      <article>
+        <ul class="list-group text-light to-dos" id="lista"></ul>
+      </article>
+      <div id="contenedor">
+      </div>
     </div>
   </section>
 </body>
