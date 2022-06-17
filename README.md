@@ -15,4 +15,4 @@ Desarrollo de aplicación web Full Stack. Para el Frontend se utiliza JavaScript
 Enlace netlify: https://retofinal-sebastianbarrera-desarrolloweb.netlify.app/
 
 ## Enlace video sustentación
-
+https://youtu.be/0jMo1b2GMxU
