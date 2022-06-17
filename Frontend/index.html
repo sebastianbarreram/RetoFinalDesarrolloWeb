@@ -22,15 +22,9 @@
     }
 
     h3{
-      border-bottom: 1px solid black;
+      border-bottom: 3px solid black;
       margin-bottom: 15px;
     }
-
-    /* .contenedorLista {
-      border-width: 2px;
-      border-style: solid;
-      border-color: rgb(107, 105, 105)
-    } */
   </style>
 </head>
 
@@ -40,8 +34,8 @@
       <article>
         <h2 class="crud-title">To-Do List</h2>
         <div class="input-group mb-3">
-          <input type="text" id="nombreListaInput" class="form-control" placeholder="Lista de To-Do" />
-          <button class="btn btn-outline-secondary" type="button" id="btnCrearLista">
+          <input type="text" id="nombreListaInput" class="form-control" placeholder="Lista de To-Do" aria-describedby="inputGroupPrepend2" required />
+          <button class="btn btn-outline-secondary btnCrearLista" type="button" id="btnCrearLista">
             Nueva lista
           </button>
         </div>

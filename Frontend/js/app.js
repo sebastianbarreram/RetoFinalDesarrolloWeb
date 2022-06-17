@@ -20,10 +20,10 @@ const getAll = async () => {
             resultados += `<div class="contenedorLista"><h3 >${lista.nombreLista}
         <button class="btnBorrarLista btn btn-danger" id="${lista.id}">Eliminar</button></h3>
                 <div class="input-group mb-3">
-          <input type="text" id="nombreListaInput" class="form-control" placeholder="¿Qué piensas hacer?">
+          <input type="text" id="nombreListaInput" class="form-control" placeholder="¿Qué piensas hacer?" required>
           <button class="btn btn-outline-secondary btnCrearTarea" type="button" id="${lista.id}">Nueva tarea</button>
         </div>
-        <table id="${lista.id}" class="tabla${lista.id}" >
+        <table id="${lista.id}" class="tabla${lista.id} table mt-2" >
         <thead>
           <tr class="text-center">
             <th>ID</th>
@@ -51,7 +51,7 @@ const getAll = async () => {
                   </th>`
                 }
                 resultados += `
-            <th>
+            <th class="text-center">
               <button class="btnEditar btn btn-primary" id="${tarea.idTarea}" name="${tarea.descripcionTarea}">Editar</button>
               <button class="btnBorrarTarea btn btn-danger" id="${tarea.idTarea}">Eliminar</button>
             </th>
@@ -280,4 +280,8 @@ document.addEventListener("click", async (e) => {
         botoninputTarea.dataset.name = e.target.id
         // console.log(opcion)
     }
+
+    if (e.target.matches(".btnCrearLista") || e.target.matches(".btnCrearTarea") && e.target.previousSibling.previousSibling.value == "" ) {
+        alert("El elemento a crear no puede estar vacío. Por favor ingrese un valor")
+     }
 });
