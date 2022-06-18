@@ -16,3 +16,17 @@ Enlace netlify: https://retofinal-sebastianbarrera-desarrolloweb.netlify.app/
 
 ## Enlace video sustentación
 https://youtu.be/0jMo1b2GMxU
+
+## Demo
+
+<p align="center">
+  <img src="/img/demo.gif" alt="animated" />
+</p>
+
+## Tablas en servidor MySQL
+<p align="center">
+  <img src="/img/Captura1.PNG">
+</p>
+<p align="center">
+  <img src="/img/Captura2.PNG">
+</p>
